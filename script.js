@@ -1,3 +1,47 @@
+//Lab12 Instructions
+//As a marketeer, I want to prevent users from seeing the same image in two subsequent iterations, so that they are not biased.
+//Update your algorithm to randomly generate three unique product images from the images directory.
+//Update your algorithm so that new products are generated, confirm that these products are not duplicates from the immediate previous set.
+
+//As a marketing manager, I would like a visual representation of how many times a product was clicked so that I can visually analyze the results.
+
+//Using ChartJS (imported from CDN), display the vote totals and the number of times a product was viewed in a bar chart format. (hint: don’t forget about the <canvas> tags)
+//Place the bar chart in the section located beneath your three product images
+//The bar charts should only appear after all voting data has been collected.
+//Run a Lighthouse Accessability report. Make necessary updates to your application based on the report to get your score above 80.
+
+//Add a screenshot of your score to your README.md file.
+
+//Stretch Goals
+//Try some additional charting types based off of some of the other data you collected and display them in addition to the required bar chart
+
+
+
+//ideas for implementation:
+//start by creating an array to store iterations
+//use that array to ensure that next iteration contains no duplicate images from previous iteration
+
+//https://stackoverflow.com/questions/18806210/generating-non-repeating-random-numbers-in-js
+
+//ex:
+//function randomNum(max, used){
+//  newNum = Math.floor(Math.random() * max + 1);
+
+//  if($.inArray(newNum, used) === -1){
+//   console.log(newNum + " is not in array");
+//   return newNum;
+
+//  }else if (used.length == max){ return;}
+//  else{
+//   return randomNum(max,used);
+//  }
+// }
+
+
+
+
+
+
 // global variables
 
 let imageContainer = document.querySelector('section');
