@@ -47,6 +47,7 @@ let resultButton = document.querySelector('section + div');
 let image1 = document.querySelector('section img:first-child');
 let image2 = document.querySelector('section img:nth-child(2)');
 let image3 = document.querySelector('section img:nth-child(3)');
+let currentImageIndexes = [];
 
 let clicks = 0;
 let maxClicksAllowed = 24;
@@ -58,15 +59,25 @@ const state = {
 
 // functional logic
 
-function Image(name, src) {
+function Items(name, src) {
   this.name = name;
   this.src = src;
   this.views = 0;
   this.clicks = 0;
 }
-
+//modify function to generate random iteration different from previous iteration
 function getRandomNumber() {
-  return Math.floor(Math.random() * state.allImagesArray.length);
+  let randomIndex = Math.floor(Math.random() * state.allImagesArray.length);
+  if (randomIndex == currentImageIndexes[0]){
+    randomIndex = Math.floor(Math.random() * state.allImagesArray.length);
+  } else if (randomIndex == currentImageIndexes[1]){
+    randomIndex = Math.floor(Math.random() * state.allImagesArray.length);
+  } else if (randomIndex == currentImageIndexes[2]){
+    randomIndex = Math.floor(Math.random() * state.allImagesArray.length);
+  }
+    console.log(currentImageIndexes);
+    console.log(randomIndex);
+  return randomIndex
 }
 
 function renderImages() {
@@ -74,11 +85,17 @@ function renderImages() {
   let images1 = getRandomNumber();
   let images2 = getRandomNumber();
   let images3 = getRandomNumber();
+  currentImageIndexes.push(images1);
+  currentImageIndexes.push(images2);
+  currentImageIndexes.push(images3);
+  
 
   while (images1 === images2 || images3 === images2 || images1 === images3) {
     images2 = getRandomNumber();
     images3 = getRandomNumber(); 
   }
+
+
 
   image1.src = state.allImagesArray[images1].src;
   image2.src = state.allImagesArray[images2].src;
@@ -108,15 +125,71 @@ function handleImageClick(event) {
   }
   if (clicks === maxClicksAllowed) {
     imageContainer.removeEventListener('click', handleImageClick);
-    // give the button an event lister and styles so the user
-    // knows its an active button:
-    resultButton.addEventListener('click', renderResults);
-    resultButton.className = 'clicks-allowed';
+      // give the button an event lister and styles so the user
+      // knows its an active button:
+    // resultButton.addEventListener('click', renderResults);
+    // resultButton.className = 'clicks-allowed';
     imageContainer.className = 'no-voting';
-  } else {
-    renderImages();
+    renderChart();
+    } else {
+      renderImages();
+    }
   }
-}
+    
+    function renderChart() {
+      let imageNames = [];
+      let imageLikes = [];
+      let imageViews = [];
+
+      for (let i = 0; i < state.allImagesArray.length; i++) {
+        imageNames.push(state.allImagesArray[i].name);
+        imageLikes.push(state.allImagesArray[i].clicks);
+        imageViews.push(state.allImagesArray[i].views);
+
+      }
+
+      const data = {
+        labels: imageNames,
+        datasets: [{
+          label: 'Likes',
+          data: imageLikes,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.6)'
+          ],
+          borderColor: [
+            'rgb(255, 99, 132)'
+          ],
+          borderWidth: 1
+        },
+        {
+          label: 'Views',
+          data: imageViews,
+          backgroundColor: [
+            'rgba(175, 43, 72, 0.6)'
+          ],
+          borderColor: [
+            'rgb(175, 43, 72)'
+          ],
+          borderWidth: 1
+        }]
+      };
+    
+      const config = {
+        type: 'bar',
+        data: data,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        },
+      };
+      let canvasChart = document.getElementById('myChart');
+      const myChart = new Chart(canvasChart, config);
+    }
+    
+
 
 function renderResults() {
   let ul = document.querySelector('ul');
@@ -129,25 +202,25 @@ function renderResults() {
 
 
 // executable code
-let bag = new Image('bag', './assets/bag.jpg');
-let banana = new Image('banana', './assets/banana.jpg');
-let bathroom = new Image('bathroom', './assets/bathroom.jpg');
-let boots = new Image('boots', './assets/boots.jpg');
-let breakfast = new Image('breakfast', './assets/breakfast.jpg');
-let bubblegum = new Image('bubblegum', './assets/bubblegum.jpg');
-let chair = new Image('chair', './assets/chair.jpg');
-let cthulhu = new Image('cthulhu', './assets/cthulhu.jpg');
-let dogDuck = new Image('dogDuck', './assets/dog-duck.jpg');
-let dragon= new Image('dragon', './assets/dragon.jpg');
-let pen = new Image('pen', './assets/pen.jpg');
-let petSweep = new Image('petSweep', './assets/pet-sweep.jpg');
-let scissors = new Image('scissors', './assets/scissors.jpg');
-let shark = new Image('shark', './assets/shark.jpg');
-let sweep = new Image('sweep', './assets/sweep.png');
-let tauntaun = new Image('tauntaun', './assets/tauntaun.jpg');
-let unicorn = new Image('unicorn', './assets/unicorn.jpg');
-let waterCan = new Image('waterCan', './assets/water-can.jpg');
-let wineGlass = new Image('wineGlass', './assets/wine-glass.jpg');
+let bag = new Items('bag', './assets/bag.jpg');
+let banana = new Items('banana', './assets/banana.jpg');
+let bathroom = new Items('bathroom', './assets/bathroom.jpg');
+let boots = new Items('boots', './assets/boots.jpg');
+let breakfast = new Items('breakfast', './assets/breakfast.jpg');
+let bubblegum = new Items('bubblegum', './assets/bubblegum.jpg');
+let chair = new Items('chair', './assets/chair.jpg');
+let cthulhu = new Items('cthulhu', './assets/cthulhu.jpg');
+let dogDuck = new Items('dogDuck', './assets/dog-duck.jpg');
+let dragon= new Items('dragon', './assets/dragon.jpg');
+let pen = new Items('pen', './assets/pen.jpg');
+let petSweep = new Items('petSweep', './assets/pet-sweep.jpg');
+let scissors = new Items('scissors', './assets/scissors.jpg');
+let shark = new Items('shark', './assets/shark.jpg');
+let sweep = new Items('sweep', './assets/sweep.png');
+let tauntaun = new Items('tauntaun', './assets/tauntaun.jpg');
+let unicorn = new Items('unicorn', './assets/unicorn.jpg');
+let waterCan = new Items('waterCan', './assets/water-can.jpg');
+let wineGlass = new Items('wineGlass', './assets/wine-glass.jpg');
 state.allImagesArray.push(bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogDuck, dragon, pen, petSweep, scissors, shark, sweep, tauntaun, unicorn, waterCan, wineGlass);
 
 renderImages();
