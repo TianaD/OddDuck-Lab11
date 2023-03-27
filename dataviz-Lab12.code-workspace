@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"name": "assets",
+			"path": "../201-Class11-Resources/lab/assets"
+		},
+		{
+			"name": "OddDuck-Lab11",
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "OddDuck-Lab11"
+	}
+}
