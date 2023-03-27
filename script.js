@@ -22,6 +22,7 @@
 
 //ex:
 //https://stackoverflow.com/questions/18806210/generating-non-repeating-random-numbers-in-js
+
 //function randomNum(max, used){
 //  newNum = Math.floor(Math.random() * max + 1);
 
@@ -68,15 +69,15 @@ function Items(name, src) {
 //modify function to generate random iteration different from previous iteration
 function getRandomNumber() {
   let randomIndex = Math.floor(Math.random() * state.allImagesArray.length);
-  if (randomIndex == currentImageIndexes[0]){
-    randomIndex = Math.floor(Math.random() * state.allImagesArray.length);
-  } else if (randomIndex == currentImageIndexes[1]){
-    randomIndex = Math.floor(Math.random() * state.allImagesArray.length);
-  } else if (randomIndex == currentImageIndexes[2]){
-    randomIndex = Math.floor(Math.random() * state.allImagesArray.length);
-  }
+  // if (randomIndex == currentImageIndexes[0]){
+  //   randomIndex = Math.floor(Math.random() * state.allImagesArray.length);
+  // } else if (randomIndex == currentImageIndexes[1]){
+  //   randomIndex = Math.floor(Math.random() * state.allImagesArray.length);
+  // } else if (randomIndex == currentImageIndexes[2]){
+  //   randomIndex = Math.floor(Math.random() * state.allImagesArray.length);
+  // }
     console.log(currentImageIndexes);
-    console.log(randomIndex);
+    // console.log(randomIndex);
   return randomIndex
 }
 
@@ -85,14 +86,30 @@ function renderImages() {
   let images1 = getRandomNumber();
   let images2 = getRandomNumber();
   let images3 = getRandomNumber();
-  currentImageIndexes.push(images1);
-  currentImageIndexes.push(images2);
-  currentImageIndexes.push(images3);
+  currentImageIndexes.push(images1, images2, images3);
   
+// console.log(images1 === images2 || images2 === images3 || images1 === images3)
+  while (images1 === images2 || images2 === images3 || images1 === images3) {
+    if (images1 === images2){
+    
+    console.log("I ran: one!")
+    
+      images1 = getRandomNumber(state.allImagesArray)
+    }else if (images2 === images3){
+    
+    console.log("I ran: two!")
 
-  while (images1 === images2 || images3 === images2 || images1 === images3) {
-    images2 = getRandomNumber();
-    images3 = getRandomNumber(); 
+      images2 = getRandomNumber(state.allImagesArray)
+    }else if (images3 === images1){
+    
+    console.log("I ran: three!")
+
+      images3 = getRandomNumber(state.allImagesArray)
+    }else console.log("Error!")
+      
+    
+    // images2 = getRandomNumber();
+    // images3 = getRandomNumber(); 
   }
 
 
