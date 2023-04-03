@@ -38,7 +38,7 @@
   
   section {
     /* This element will be a grid item, but also a flex container */
-    background-color: white;
+    /* background-color: rgba(144, 52, 52, 0.689); */
     grid-row-start: 3;
     grid-row-end: 5;
     grid-column-start: 1;
